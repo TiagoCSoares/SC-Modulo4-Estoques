@@ -1,0 +1,21 @@
+ID, Nome, Quantidade, Categoria, Preço, Tipo
+001, Caneta, 100, Material de Escritório, 1.50, Normal
+002, Caderno, 50, Material de Escritório, 5.00, Normal
+003, Mouse sem Fio, 30, Tecnologia, 20.00, Normal
+004, Fones de Ouvido, 40, Tecnologia, 15.00, Normal
+005, Camiseta Branca, 20, Vestuário, 10.00, Normal
+006, Sapato Preto, 15, Vestuário, 25.00, Normal
+007, Livro de Ficção, 80, Livros, 12.00, Normal
+008, Mochila, 25, Acessórios, 30.00, Normal
+009, Lápis, 150, Material de Escritório, 0.50, Normal
+010, Agenda, 35, Material de Escritório, 8.00, Normal
+011, Tablet, 10, Tecnologia, 200.00, Normal
+012, Meias, 50, Vestuário, 3.00, Normal
+013, Relógio Digital, 20, Acessórios, 18.00, Normal
+014, Máquina Fotográfica, 5, Tecnologia, 150.00, Normal
+015, DVD Player, 15, Eletrônicos, 50.00, Normal
+016, Óculos de Sol, 40, Acessórios, 22.00, Normal
+017, Caneca, 60, Utensílios Domésticos, 7.00, Normal
+018, Toalha de Banho, 3, Casa e Decoração, 15.00, Baixo Estoque
+019, Escova de Dentes, 75, Higiene Pessoal, 2.50, Normal
+020, Guarda-chuva, 2, Acessórios, 12.00, Baixo Estoque
