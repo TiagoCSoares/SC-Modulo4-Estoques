@@ -19,6 +19,9 @@ public class LerArquivo {
                 System.err.println("O arquivo não existe.");
             } else if (arquivo.length() > 0) {
                 try (BufferedReader reader = new BufferedReader(new FileReader(arquivo))) {
+                    // Ignorar a primeira linha (cabeçalho)
+                    reader.readLine();
+
                     String linha;
                     while ((linha = reader.readLine()) != null) {
                         String[] elementos = linha.split(",");
@@ -36,11 +39,11 @@ public class LerArquivo {
     }
 
     private Produtos novoProduto(String[] elementos) {
-        Integer id = Integer.valueOf(elementos[0]);
+        Integer id = Integer.valueOf(elementos[0].trim());
         String nome = elementos[1];
-        Integer quantidade = Integer.valueOf(elementos[2]);
+        Integer quantidade = Integer.valueOf(elementos[2].trim());
         String categoria = elementos[3];
-        BigDecimal preco = new BigDecimal(elementos[4]);
+        BigDecimal preco = new BigDecimal(elementos[4].trim());
 
         return new Produtos(id, nome, quantidade, categoria, preco);
     }
