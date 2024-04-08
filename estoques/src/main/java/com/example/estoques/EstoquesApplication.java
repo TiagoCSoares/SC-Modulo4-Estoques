@@ -61,10 +61,9 @@ public class EstoquesApplication implements CommandLineRunner {
 		listaProdutos.forEach(p -> {
 				update(p);
 		});
-
 	}
 
-	private void selectPessoas() {
+	private void selectProdutos() {
 		String sql = "SELECT * FROM PRODUTOS";
 
 		RowMapper<Produtos> rowMapper = ((rs, rowNum) -> new Produtos(
@@ -103,12 +102,13 @@ public class EstoquesApplication implements CommandLineRunner {
 	}
 
 	private void insert(Produtos produto) {
-		String sql = "INSERT INTO PRODUTOS (nome, quantidade, categoria, preco) VALUES (?, ?, ?, ?)";
+		String sql = "INSERT INTO PRODUTOS (nome, quantidade, categoria, preco, estoque) VALUES (?, ?, ?, ?, ?)";
 		jdbcTemplate.update(sql,
 				produto.getNome(),
 				produto.getQuantidade(),
 				produto.getCategoria(),
-				produto.getPreco());
+				produto.getPreco(),
+				produto.getEstoque());
 	}
 
 
