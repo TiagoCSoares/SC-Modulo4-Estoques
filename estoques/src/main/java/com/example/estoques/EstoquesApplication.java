@@ -13,6 +13,7 @@ import javax.sound.sampled.Port;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @SpringBootApplication
 public class EstoquesApplication implements CommandLineRunner {
@@ -29,9 +30,9 @@ public class EstoquesApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-
+		//deleteTableIfExists();
 		createTableIfNotExists();
-		//limparTabela();
+		limparTabela();
 
 		List<Produtos> listaProdutos = new ArrayList<>();
 		new LerArquivo().lerArquivo(listaProdutos, "src/main/java/com/example/estoques/arquivosCSV/lista_de_produtos.csv");
@@ -39,6 +40,27 @@ public class EstoquesApplication implements CommandLineRunner {
 		listaProdutos.forEach(p -> {
 					insert(p);
 				});
+
+		//Gerar Relatorios
+		GerarRelatorios gerarRelatorios = new GerarRelatorios(jdbcTemplate);
+
+		gerarRelatorios.numeroCategorias();
+		gerarRelatorios.quantidadeEmEstoque();
+		gerarRelatorios.valorMedio();
+
+		listaProdutos = gerarRelatorios.estoqueBaixo();
+		listaProdutos = listaProdutos.stream()
+				.map(p -> {
+					if (p.getEstoque() == null) {
+						p.setEstoque("normal");
+					}
+					return p;
+				})
+				.collect(Collectors.toList());
+
+		listaProdutos.forEach(p -> {
+				update(p);
+		});
 
 	}
 
@@ -70,12 +92,13 @@ public class EstoquesApplication implements CommandLineRunner {
 	}
 
 	private void update(Produtos produto) {
-		String sql = "UPDATE PRODUTOS SET nome = ?, quantidade = ?, categoria = ?, preco = ? WHERE id = ?";
+		String sql = "UPDATE PRODUTOS SET nome = ?, quantidade = ?, categoria = ?, preco = ?, estoque = ? WHERE id = ?";
 		jdbcTemplate.update(sql,
 				produto.getNome(),
 				produto.getQuantidade(),
 				produto.getCategoria(),
 				produto.getPreco(),
+				produto.getEstoque(),
 				produto.getId());
 	}
 
@@ -96,7 +119,8 @@ public class EstoquesApplication implements CommandLineRunner {
 				"NOME VARCHAR(100) NOT NULL," +
 				"QUANTIDADE INT," +
 				"CATEGORIA VARCHAR(100)," +
-				"PRECO DECIMAL(10,2)" +
+				"PRECO DECIMAL(10,2)," +
+				"ESTOQUE VARCHAR(100)" +
 				")";
 		jdbcTemplate.execute(sql);
 	}

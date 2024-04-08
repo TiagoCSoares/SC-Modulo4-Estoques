@@ -9,6 +9,7 @@ public class Produtos {
     private Integer quantidade;
     private String categoria;
     private BigDecimal preco;
+    private String estoque;
 
 
     public Produtos(Integer id, String nome, Integer quantidade, String categoria, BigDecimal preco) {
@@ -57,5 +58,13 @@ public class Produtos {
 
     public void setPreco(BigDecimal preco) {
         this.preco = preco;
+    }
+
+    public String getEstoque() {
+        return estoque;
+    }
+
+    public void setEstoque(String estoque) {
+        this.estoque = estoque;
     }
 }
